@@ -1,0 +1,5 @@
+#each lines defines files, directories and the codeowners.
+
+ObstacleDetector.java @JesseAaltonen
+LineFollowerV2.java @SauliKaloinen
+DataExchange.java @EetuSaarinen

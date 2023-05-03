@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add parameters</title>
+<script>
+function sendData(){
+	//Create a new Javascript object
+	var Parameters=new Object();
+	Parameters.motor1Speed=document.getElementById("motor1Speed").value;
+	Parameters.motor2Speed=document.getElementById("motor2Speed").value;
+	
+	var jsonParameters=JSON.stringify(Parameters);
+	var xhttp = new XMLHttpRequest();
+	
+	xhttp.onreadystatechange = function() {
+	  if (this.readyState == 4 && this.status == 200) {
+	   document.getElementById("responseView").innerHTML = this.responseText;
+	   var returned=JSON.parse(this.responseText);
+	   document.getElementById("inparts").innerHTML="ID="+returned.id+" motor1Speed="+returned.motor1Speed+" motor2Speed="+returned.motor2Speed;
+	  }
+	};
+	
+	xhttp.open("POST","/rest/legoservice/legoform",true);
+	xhttp.setRequestHeader("Content-type","application/json");
+	xhttp.send(jsonParameters);
+ 
+	
+}
+</script>
+</head>
+<body>
+<h2>This is a lego form. Type motor 1 and motor 2 speed.</h2>
+
+<form action="#" method='post' onsubmit='return false;'>
+Motor 1(left) speed: <input id='motor1Speed' type='text' name='speed' value=''><br>
+Motor 2(right) Speed: <input id='motor2Speed' type='text' name='speed' value=''><br>
+<input type='button' name='ok' value='Send' onclick='sendData();'><br>
+</form>
+<div id='responseView'></div>
+<div id='inpart'></div>
+</body>
+</html>
